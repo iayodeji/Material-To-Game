@@ -56,7 +56,10 @@ export async function parseUrl(url: string): Promise<string> {
     redirect: "follow",
     signal: AbortSignal.timeout(15000),
   }).catch((err: unknown) => {
-    if (err instanceof DOMException && err.name === "TimeoutError") {
+    const isTimeout =
+      (err instanceof DOMException && err.name === "TimeoutError") ||
+      (err instanceof Error && (err.name === "TimeoutError" || err.name === "AbortError"));
+    if (isTimeout) {
       throw new Error("Request timeout: URL took longer than 15 seconds to load");
     }
     throw err;
