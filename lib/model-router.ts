@@ -63,7 +63,7 @@ export async function generateGameHtml(
   const request: LLMRequest = {
     system: GAME_GENERATION_SYSTEM_PROMPT,
     user: buildUserPrompt(spec),
-    maxTokens: 8192,
+    maxTokens: 16384,
   };
 
   const html = await adapter.generate(request, config.apiKey, config.model);
@@ -89,7 +89,7 @@ export async function generateGameHtmlStream(
   const request: LLMRequest = {
     system: GAME_GENERATION_SYSTEM_PROMPT,
     user: buildUserPrompt(spec),
-    maxTokens: 8192,
+    maxTokens: 16384,
   };
 
   return adapter.generateStream(request, config.apiKey, config.model);

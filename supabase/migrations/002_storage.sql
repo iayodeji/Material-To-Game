@@ -9,7 +9,7 @@ on conflict (id) do nothing;
 -- Storage policies
 create policy "Authenticated users can upload games"
   on storage.objects for insert
-  with check (bucket_id = 'games');
+  with check (bucket_id = 'games' AND auth.uid() IS NOT NULL);
 
 create policy "Anyone can read public games"
   on storage.objects for select
